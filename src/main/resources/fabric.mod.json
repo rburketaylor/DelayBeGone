@@ -1,35 +1,38 @@
 {
-  "schemaVersion": 1,
-  "id": "delaybegone",
-  "version": "${version}",
-
-  "name": "Delay Be Gone",
-  "description": "This is a simple mod that takes out the block delay from shields, so you can block instantly.",
-  "authors": [
-    "IamTis"
-  ],
-  "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/delay-be-gone",
-    "sources": "https://github.com/rburketaylor/DelayBeGone"
-  },
-
-  "license": "MIT",
-  "icon": "assets/delaybegone/icon.png",
-
-  "environment": "*",
-  "entrypoints": {
-    "main": [
-      "net.iamtis.delaybegone.DelayBeGone"
-    ]
-  },
-  "mixins": [
-    "removeshielddelay.mixins.json"
-  ],
-
-  "depends": {
-    "fabricloader": ">=0.11.3",
-    "fabric": "*",
-    "minecraft": "1.18.*",
-    "java": ">=16"
-  }
+	"schemaVersion": 1,
+	"id": "delaybegone",
+	"version": "${version}",
+	"name": "Delay Be Gone",
+	"description": "This is a simple mod that takes out the block delay from shields, so you can block instantly.",
+	"authors": [
+		"IamTis"
+	],
+	"contact": {
+		"homepage": "https://www.curseforge.com/minecraft/mc-mods/delay-be-gone",
+		"sources": "https://github.com/rburketaylor/DelayBeGone"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/delaybegone/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.delaybegone.DelayBeGone"
+		],
+		"client": [
+			"com.delaybegone.DelayBeGoneClient"
+		]
+	},
+	"mixins": [
+		"delaybegone.mixins.json",
+		{
+			"config": "delaybegone.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.20.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	}
 }
