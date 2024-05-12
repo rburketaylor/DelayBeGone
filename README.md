@@ -17,7 +17,7 @@ To install Delay Be Gone, follow these steps:
 3. Place the downloaded `.jar` file into the `mods` folder in your Minecraft installation directory.
 
 ## Compatibility
-- Minecraft Version: 1.20.4
+- Minecraft Version: 1.20.6
 - Required: Fabric API
 
 ## Usage
