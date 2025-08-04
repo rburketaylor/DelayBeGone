@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.6-SNAPSHOT'
+	id 'fabric-loom' version "${loom_version}"
 	id 'maven-publish'
 }
 
@@ -42,15 +42,16 @@ dependencies {
 }
 
 processResources {
-	inputs.property "version", project.version
+	def projectVersion = version
+	inputs.property "version", projectVersion
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand "version": projectVersion
 	}
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release = 21
 }
 
 java {
@@ -59,13 +60,14 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
+	def archivesBaseName = base.archivesName.get()
 	from("LICENSE") {
-		rename { "${it}_${project.base.archivesName.get()}"}
+		rename { "${it}_${archivesBaseName}"}
 	}
 }
 
