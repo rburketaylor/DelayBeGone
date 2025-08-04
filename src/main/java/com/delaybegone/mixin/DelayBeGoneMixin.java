@@ -1,15 +1,17 @@
 package com.delaybegone.mixin;
 
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.component.type.BlocksAttacksComponent;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(LivingEntity.class)
+@Mixin(BlocksAttacksComponent.class)
 public class DelayBeGoneMixin {
-	@ModifyConstant(method = "isBlocking", constant = @Constant(intValue = 5))
-	private int removeDelay(int delay){
-		delay = 0;
-		return delay;
+	/**
+	 * @reason Remove block attack delay to improve combat responsiveness
+	 * @author DelayBeGone
+	 */
+	@Overwrite
+	public int getBlockDelayTicks() {
+		return 0;
 	}
 }
