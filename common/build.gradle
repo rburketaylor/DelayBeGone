@@ -1,0 +1,7 @@
+// Common module for shared code across Minecraft versions
+apply plugin: 'java-library'
+
+dependencies {
+    // Add any dependencies that are common across all versions
+    // Note: Minecraft/Fabric specific dependencies should be in version-specific modules
+}

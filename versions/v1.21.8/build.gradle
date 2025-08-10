@@ -1,0 +1,75 @@
+plugins {
+	id 'fabric-loom' version "${loom_version}"
+	id 'maven-publish'
+}
+
+base {
+	archivesName = "${project.archives_base_name}-${project.minecraft_version}"
+}
+
+repositories {
+	// Add repositories to retrieve artifacts from in here.
+}
+
+loom {
+	splitEnvironmentSourceSets()
+
+	mods {
+		"delaybegone" {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
+}
+
+dependencies {
+	// To change the versions see the gradle.properties file
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	// Fabric API
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	
+	// Include common module
+	implementation project(':common')
+}
+
+processResources {
+	inputs.property "version", project.version
+	inputs.property "minecraft_version", project.minecraft_version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version,
+			   "minecraft_version": project.minecraft_version
+	}
+	
+	// Copy shared resources
+	from(rootProject.file('shared-resources')) {
+		into 'assets'
+	}
+}
+
+java {
+	withSourcesJar()
+}
+
+jar {
+	def archivesBaseName = base.archivesName.get()
+	from("LICENSE") {
+		rename { "${it}_${archivesBaseName}"}
+	}
+}
+
+publishing {
+	publications {
+		create("mavenJava", MavenPublication) {
+			artifactId = "${project.archives_base_name}-${project.minecraft_version}"
+			from components.java
+		}
+	}
+
+	repositories {
+		// Add repositories to publish to here.
+	}
+}
